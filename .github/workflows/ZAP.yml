@@ -1,2 +1,34 @@
-- name: OWASP ZAP Baseline Scan
-  uses: zaproxy/action-baseline@v0.4.0
+name: 'OWASP ZAP Baseline Scan'
+description: 'Scans the web application with the OWASP ZAP Baseline Scan'
+branding:
+  icon: 'zap'
+  color: 'blue'
+inputs:
+  token:
+    description: 'GitHub Token to create issues in the repository'
+    required: false
+    default: ${{ github.token }}
+  target:
+    description: 'Target URL'
+    required: true
+  rules_file_name:
+    description: 'Relative path of the ZAP configuration file'
+    required: false
+  docker_name:
+    description: 'The Docker file to be executed'
+    required: true
+    default: 'owasp/zap2docker-stable'
+  cmd_options:
+    description: 'Additional command line options'
+    required: false
+  issue_title:
+    description: 'The title for the GitHub issue to be created'
+    required: false
+    default: 'ZAP Scan Baseline Report'
+  fail_action:
+    description: 'The action status will be set to fail if ZAP identifies any alerts during the baseline scan'
+    required: false
+    default: false
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
